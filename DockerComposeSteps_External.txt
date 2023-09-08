@@ -1,18 +1,13 @@
 1) Create external networks so to add external containers in
 
-
-docker run --name c_sqlserver_external -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Salih123!" -e "MSSQL_PID=Enterprise" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
-docker run -it --rm --name c_rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
-
 docker network create blazor_backend --attachable
+
 docker network create blazor_frontend --attachable
 
+2) Add external container into the newly created networks
 
 docker network connect blazor_backend c_sqlserver_external
 docker network connect blazor_backend c_rabbitmq
-
-
-2) Add external container into the newly created networks
 
 3) Replace RabbitMQ host name constants with container name (c_rabbitmq)
 
